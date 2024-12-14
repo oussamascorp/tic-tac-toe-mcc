@@ -1,0 +1,256 @@
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
+:root {
+    --cell-size: 100px;
+    --mark-size: calc(var(--cell-size) * .9);
+}
+
+body {
+    margin: 0;
+    background-color: rgb(255, 166, 65);
+}
+
+H1 {
+    font-family: 'Gotham', Arial, sans-serif;
+    font-size: 2.5rem;
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    text-align: center;
+    color: rgb(0, 0, 0);
+}
+
+.board {
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: repeat(3, auto)
+}
+
+.cell {
+    width: var(--cell-size);
+    height: var(--cell-size);
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.cell:first-child,
+.cell:nth-child(2),
+.cell:nth-child(3) {
+    border-top: none;
+}
+
+.cell:nth-child(3n + 1) {
+    border-left: none;
+}
+
+.cell:nth-child(3n + 3) {
+    border-right: none;
+}
+
+.cell:last-child,
+.cell:nth-child(8),
+.cell:nth-child(7) {
+    border-bottom: none;
+}
+
+.cell.x,
+.cell.circle {
+    cursor: not-allowed;
+}
+
+.cell.x::before,
+.cell.x::after,
+.cell.circle::before {
+    background-color: black;
+}
+
+.board.x .cell:not(.x):not(.circle):hover::before,
+.board.x .cell:not(.x):not(.circle):hover::after,
+.board.circle .cell:not(.x):not(.circle):hover::before {
+    background-color: rgb(59, 59, 59);
+}
+
+.cell.x::before,
+.cell.x::after,
+.board.x .cell:not(.x):not(.circle):hover::before,
+.board.x .cell:not(.x):not(.circle):hover::after {
+    content: '';
+    position: absolute;
+    width: calc(var(--mark-size) * .15);
+    height: var(--mark-size);
+}
+
+.cell.x::before,
+.board.x .cell:not(.x):not(.circle):hover::before {
+    transform: rotate(45deg);
+}
+
+.cell.x::after,
+.board.x .cell:not(.x):not(.circle):hover::after {
+    transform: rotate(-45deg);
+}
+
+.cell.circle::before,
+.cell.circle::after,
+.board.circle .cell:not(.x):not(.circle):hover::before,
+.board.circle .cell:not(.x):not(.circle):hover::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+}
+
+.cell.circle::before,
+.board.circle .cell:not(.x):not(.circle):hover::before {
+    width: var(--mark-size);
+    height: var(--mark-size);
+}
+
+.cell.circle::after,
+.board.circle .cell:not(.x):not(.circle):hover::after {
+    width: calc(var(--mark-size) * .7);
+    height: calc(var(--mark-size) * .7);
+    background-color: rgb(255, 166, 65);
+}
+
+.winning-message {
+    font-family: 'Gotham', Arial, sans-serif;
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .9);
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 5rem;
+    flex-direction: column;
+}
+
+
+
+
+.winning-message button {
+    font-family: 'Gotham', Arial, sans-serif;
+    font-size: 2.5rem;
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+    padding: 0.3em 1em;
+    cursor: pointer;
+    border-radius: 50px;
+    transition: all 0.3s ease-in-out;
+}
+
+.winning-message button:hover {
+    background-color: black;
+    color: white;
+    transform: scale(1.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.winning-message button:active {
+    transform: scale(1.05);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.winning-message.show {
+    display: flex;
+}
+
+
+.container {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    pointer-events: auto;
+    z-index: 1000;
+    border-radius: 10px;
+}
+
+.container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.btn1 {
+    position: fixed;
+    bottom: 20px;
+    left: 49%;
+    transform: translateX(-50%);
+    margin: 20px;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    background-color: #000000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 30px;
+}
+.btn{
+    margin: 20px;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    background-color: #000000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 30px;
+}
+.btn:hover {
+    background-color: #ff7b00;
+
+}
+
+.close-btn {
+    position: absolute; /* يجعل الزر ثابتاً بالنسبة للحاوية */
+    top: 75%; /* يضع الزر تحت الصورة مباشرة */
+    left: 49%;
+    transform: translateX(-50%); /* يحرك الزر ليكون في المنتصف تماماً */
+    margin-top: 10px; /* يضيف مسافة بين الزر والصورة */
+    z-index: 1001; /* يجعله فوق الـ overlay */
+    background-color: #ff8800;
+      display: none;
+}
+
+.close-btn:hover {
+    background-color: #2e2e2e;
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.904);
+    pointer-events: all;
+    z-index: 999;
+}
